@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -60,9 +61,19 @@ public interface ActionBD {
     /**
      * Cette méthode permet d'enregistrer un programmeur dans la base de données
      * et retourne une variable de type int pour dire si la requête s'est bien passé
+     * @param matricule
+     * @param nom
+     * @param prenom
+     * @param adresse
+     * @param hobby
+     * @param responsable
+     * @param naissance
+     * @param pseudo
+     * @param embauche
      * @return statut une variable de type int
      */
-    public abstract int ajouterProgrammeur();
+    public abstract int ajouterProgrammeur(String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, 
+            String hobby, Date naissance, Date embauche);
     
     
     /**

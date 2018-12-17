@@ -6,6 +6,7 @@
 package data;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,12 +57,16 @@ public class DataTransac implements ActionBD {
         try {
             while (rs.next()) {
                 prog = new ProgrammeurBean();
+                prog.setId(rs.getInt("ID"));
+                prog.setMatricule(rs.getString("MATRICULE"));
                 prog.setPrenom(rs.getString("PRENOM"));
                 prog.setNom(rs.getString("NOM"));
-                prog.setAnNaissance(rs.getInt("ANNAISSANCE"));
-                prog.setSalaire(rs.getFloat("SALAIRE"));
-                prog.setPrime(rs.getFloat("PRIME"));
+                prog.setAdresse(rs.getString("ADRESSE"));
                 prog.setPseudo(rs.getString("PSEUDO"));
+                prog.setResponsable(rs.getString("RESPONSABLE"));
+                prog.setHobby(rs.getString("HOBBY"));
+                prog.setNaissance(rs.getDate("DATE_NAISS"));
+                prog.setEmbauche(rs.getDate("DATE_EMB"));
                 listeProgrammeurs.add(prog);
             }
         } catch (SQLException sqle) {
@@ -79,12 +84,17 @@ public class DataTransac implements ActionBD {
 
             while (rs.next()) {
                 prog = new ProgrammeurBean();
+                prog.setId(rs.getInt("ID"));
+                prog.setMatricule(rs.getString("MATRICULE"));
                 prog.setPrenom(rs.getString("PRENOM"));
                 prog.setNom(rs.getString("NOM"));
-                prog.setNaissance(rs.getDate("DATE_NAISS"));
-                prog.setSalaire(rs.getFloat("SALAIRE"));
-                prog.setPrime(rs.getFloat("PRIME"));
+                prog.setAdresse(rs.getString("ADRESSE"));
                 prog.setPseudo(rs.getString("PSEUDO"));
+                prog.setResponsable(rs.getString("RESPONSABLE"));
+                prog.setHobby(rs.getString("HOBBY"));
+                prog.setNaissance(rs.getDate("DATE_NAISS"));
+                prog.setEmbauche(rs.getDate("DATE_EMB"));
+                
             }
         } catch (SQLException sqle) {
             Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, sqle);
@@ -94,17 +104,59 @@ public class DataTransac implements ActionBD {
 
     @Override
     public String afficherProgrammeurs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String listeProg = "";
+
+        listeProgrammeurs = this.getProgrammeurs();
+        for (ProgrammeurBean progr : listeProgrammeurs) {
+            listeProg = listeProg + progr;
+        }
+
+        return listeProg;
     }
 
     @Override
     public void fermerRessources() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (dbConn != null) {
+            try {
+                dbConn.close();
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                dbConn = null;
+            } catch (SQLException ex) {
+                Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
-    public int ajouterProgrammeur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int ajouterProgrammeur(String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, 
+            String hobby, Date naissance, Date embauche) {
+         
+        try {
+            pstmt = dbConn.prepareStatement(Constante.REQUETE_INSERTION);
+            pstmt.setString(1,matricule);
+            pstmt.setString(2, nom);
+            pstmt.setString(3, prenom);
+            pstmt.setString(4, adresse);
+            pstmt.setString(5, pseudo);
+            pstmt.setString(6, responsable);
+            pstmt.setString(7, hobby);
+            pstmt.setDate(8, naissance);
+            pstmt.setDate(9, embauche);
+            rs = pstmt.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, ex);
+            return 1;
+        }
+        return 0;
     }
 
     @Override

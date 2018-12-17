@@ -12,16 +12,16 @@ import java.sql.Date;
  * @author Ssoj
  */
 public class ProgrammeurBean {
+    private int id;
+    private String matricule;
     private String nom;
     private String prenom;
     private String adresse;
     private String pseudo;
-    private String reponsable;
+    private String responsable;
     private String hobby;
     private Date naissance;
     private Date embauche;
-    private float salaire;
-    private float prime;
     
 
     public ProgrammeurBean() {
@@ -29,14 +29,15 @@ public class ProgrammeurBean {
 
     @Override
     public String toString() {
-        String affichage = "Prénom : " + this.getPrenom()
-                            + " Nom : " + this.getNom()
-                            + " Adresse : " + this.getAdresse()
-                            + " Pseudo : " + this.getPseudo()
-                            + " Naissance : " + this.getNaissance().toString()
-                            + " Salaire : " + this.getSalaire() 
-                            + " Prime : " + this.getPrime()
-                            
+        String affichage = this.getMatricule()
+                            + " " + this.getPrenom()
+                            + " " + this.getNom()
+                            + " " + this.getAdresse()
+                            + " " + this.getPseudo()
+                            + " " + this.getResponsable()
+                            + " " + this.getHobby()
+                            + " " + this.getNaissance().toString()
+                            + " " + this.getEmbauche().toString() 
                             + "\n";
 
         return affichage;
@@ -66,22 +67,6 @@ public class ProgrammeurBean {
         this.naissance = naissance;
     }
 
-    public float getSalaire() {
-        return salaire;
-    }
-
-    public void setSalaire(float salaire) {
-        this.salaire = salaire;
-    }
-
-    public float getPrime() {
-        return prime;
-    }
-
-    public void setPrime(float prime) {
-        this.prime = prime;
-    }
-
     public String getPseudo() {
         return pseudo;
     }
@@ -89,4 +74,53 @@ public class ProgrammeurBean {
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
+    
+    public String getAdresse() {
+        return adresse;
+    }
+    
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+    
+    public String getResponsable() {
+        return responsable;
+    }
+    
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+    
+    public String getHobby() {
+        return hobby;
+    }
+    
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public Date getEmbauche() {
+        return embauche;
+    }
+
+    public void setEmbauche(Date embauche) {
+        this.embauche = embauche;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 }
