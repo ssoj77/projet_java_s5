@@ -88,7 +88,12 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == afficherTous) {
+        if (event.getSource() == afficherTous) {            
+            pane.removeAll();
+            zoneAffichageProgrammeurs = new JTextArea(10, 50);
+            scroll = new JScrollPane(zoneAffichageProgrammeurs);
+            pane.add(scroll);
+            getContentPane().revalidate();
             dt = new DataTransac();
             contenuTextArea = dt.afficherProgrammeurs();
             zoneAffichageProgrammeurs.setText(contenuTextArea);
@@ -120,9 +125,9 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
                 System.exit(0);
             }
         } else if (event.getSource() == modifier) {
-            this.pane.removeAll();
-            this.pane.add(new VueModification());
-            this.getContentPane().revalidate();
+            pane.removeAll();
+            pane.add(new VueModification());
+            getContentPane().revalidate();
         }
             
         
