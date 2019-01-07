@@ -76,10 +76,10 @@ public class DataTransac implements ActionBD {
     }
 
     @Override
-    public ProgrammeurBean getProgrammeur(String nom) {
+    public ProgrammeurBean getProgrammeur(String matricule) {
         try {
             pstmt = dbConn.prepareStatement(Constante.REQUETE_UNIQUE);
-            pstmt.setString(1, nom);
+            pstmt.setString(1, matricule);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
