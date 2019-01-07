@@ -81,7 +81,7 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
         this.setVisible(true);
         this.setTitle("TP 3");
         setDefaultCloseOperation(EXIT_ON_CLOSE); // Fermeture fenêtre = arrêt de l'application 
-        setBounds(10, 10, 600, 300);
+        setBounds(10, 10, 700, 380);
 
         this.add(pane); // Ajout du panel à notre frame de base
     }
@@ -114,11 +114,20 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
                 options,  //the titles of buttons
                 options[0]); //default button title
             if(n == JOptionPane.YES_OPTION){
+                if (dt != null) {
+                    dt.fermerRessources();
+                }
                 System.exit(0);
             }
+        } else if (event.getSource() == modifier) {
+            this.pane.removeAll();
+            this.pane.add(new VueModification());
+            this.getContentPane().revalidate();
         }
-            dt.fermerRessources();
+            
         
     }
+    
+   
 
 }
