@@ -29,17 +29,11 @@ public class ProgrammeurBean {
 
     @Override
     public String toString() {
-        String affichage = this.getMatricule()
-                            + " " + this.getPrenom()
-                            + " " + this.getNom()
-                            + " " + this.getAdresse()
-                            + " " + this.getPseudo()
-                            + " " + this.getResponsable()
-                            + " " + this.getHobby()
-                            + " " + this.getNaissance().toString()
-                            + " " + this.getEmbauche().toString() 
+        String affichage = this.getMatricule() + " " + this.getNom() + " " + this.getPrenom()                            
+                            + " " + this.getAdresse() + " " + this.getPseudo() 
+                            + " " + this.getResponsable() + " " + this.getHobby()
+                            + " " + this.getNaissance()+ " " + this.getEmbauche()                
                             + "\n";
-
         return affichage;
     }
 

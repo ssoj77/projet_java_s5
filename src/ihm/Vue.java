@@ -38,6 +38,7 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
     private ProgrammeurBean progrBean;
     private String contenuTextArea;
     private DataTransac dt;
+    private VueModification vm;
 
     @Override
     public void init() {
@@ -130,7 +131,21 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
             }
         } else if (event.getSource() == modifier) {
             pane.removeAll();
-            pane.add(new VueModification());
+            vm = new VueModification();
+            vm.modifier();
+            pane.add(vm); 
+            getContentPane().revalidate();
+        } else if (event.getSource() == supprimer) {
+            pane.removeAll();
+            vm = new VueModification();
+            vm.supprimer();
+            pane.add(vm); 
+            getContentPane().revalidate();
+        } else if (event.getSource() == ajouter) {
+            pane.removeAll();
+            vm = new VueModification();
+            vm.ajouter();
+            pane.add(vm);            
             getContentPane().revalidate();
         }
             
