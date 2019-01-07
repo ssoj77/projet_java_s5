@@ -92,7 +92,7 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == afficherTous) {            
             pane.removeAll();
-            zoneAffichageProgrammeurs = new JTextArea(10, 50);
+            zoneAffichageProgrammeurs = new JTextArea(15, 55);
             scroll = new JScrollPane(zoneAffichageProgrammeurs);
             pane.add(scroll);
             getContentPane().revalidate();
