@@ -82,5 +82,6 @@ public interface ActionBD {
      * @param matricule le matricule du programmeur à modifier
      * @return statut une variable de type int
      */
-    public abstract int modifierProgrammeur(int matricule);
+    public abstract int modifierProgrammeur(int id, int matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, Date naissance,
+            Date embauche);
 }
