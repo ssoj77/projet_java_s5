@@ -103,7 +103,19 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
 //                zoneAffichageProgrammeurs.setText(contenuTextArea);
 //            }
         } else if (event.getSource() == quitter){
-            System.exit(0);
+            Object[] options = {"Oui",
+                    "Non"};
+            int n = JOptionPane.showOptionDialog(this,
+                "Vérification",
+                "Voulez vous quitter ?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,     //do not use a custom Icon
+                options,  //the titles of buttons
+                options[0]); //default button title
+            if(n == JOptionPane.YES_OPTION){
+                System.exit(0);
+            }
         }
             dt.fermerRessources();
         
