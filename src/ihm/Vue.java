@@ -39,6 +39,7 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
     private String contenuTextArea;
     private DataTransac dt;
 
+    @Override
     public void init() {
         pane = new JPanel(); // Créantion d'un panel pour gérer les widgets
         zoneAffichageProgrammeurs = new JTextArea();
@@ -65,7 +66,7 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
         barMenu.add(menuAction);        
         setJMenuBar(barMenu);
 
-        zoneAffichageProgrammeurs = new JTextArea(10, 50);
+        zoneAffichageProgrammeurs = new JTextArea(15, 55);
         scroll = new JScrollPane(zoneAffichageProgrammeurs);
         pane.add(scroll);
 
@@ -81,7 +82,7 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
         this.setVisible(true);
         this.setTitle("TP 3");
         setDefaultCloseOperation(EXIT_ON_CLOSE); // Fermeture fenêtre = arrêt de l'application 
-        setBounds(10, 10, 700, 380);
+        setBounds(10, 10, 680, 380);
 
         this.add(pane); // Ajout du panel à notre frame de base
     }
@@ -92,6 +93,9 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
             dt = new DataTransac();
             contenuTextArea = dt.afficherProgrammeurs();
             zoneAffichageProgrammeurs.setText(contenuTextArea);
+            pane.removeAll();
+            pane.add(scroll);
+            pane.repaint();
             dt.fermerRessources();
 //        } else if (event.getSource() == btnRechercher) {
 //            dt = new DataTransac();
@@ -106,8 +110,8 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
             Object[] options = {"Oui",
                     "Non"};
             int n = JOptionPane.showOptionDialog(this,
-                "Vérification",
                 "Voulez vous quitter ?",
+                "Vérification",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,     //do not use a custom Icon

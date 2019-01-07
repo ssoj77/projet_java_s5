@@ -12,5 +12,5 @@ import javax.swing.JFrame;
  * @author Ssoj
  */
 public abstract class GestionVueAbstraite extends JFrame {
-    
+    public abstract void init();
 }
