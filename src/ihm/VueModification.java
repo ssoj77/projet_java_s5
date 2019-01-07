@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 public class VueModification extends javax.swing.JPanel {
 
     private DataTransac dt;
+    private ProgrammeurBean prog;
 
     /**
      * Creates new form VueModification
@@ -65,6 +67,25 @@ public class VueModification extends javax.swing.JPanel {
         jButton_annuler.setEnabled(true);
         jPanel2.setEnabled(false);
 
+    }
+    
+    private void reinitText(){
+        jTextField_matricule.setText("");
+        jTextField_nom.setText("");
+        jTextField_prenom.setText("");
+        jTextField_responsable.setText("");
+        jTextField_hobby.setText("");
+        jTextField_adresse.setText("");
+        jTextField_pseudo.setText("");
+        DateFormat dateFormat = new SimpleDateFormat("dd");
+        jTextField_dnJour.setText("jour");
+        jTextField_deJour.setText("jour");
+        dateFormat = new SimpleDateFormat("yyyy");         
+        jTextField_dnAnnee.setText("annee");
+        jTextField_deAnnee.setText("annee");
+        dateFormat = new SimpleDateFormat("MM");  
+        jComboBox_dnMois.setSelectedIndex(0); //Index commence à 0
+        jComboBox_deMois.setSelectedIndex(0);
     }
    
     /**
@@ -123,6 +144,11 @@ public class VueModification extends javax.swing.JPanel {
         jButton_valider.setText("Valider");
 
         jButton_annuler.setText("Annuler");
+        jButton_annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_annulerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -339,7 +365,7 @@ public class VueModification extends javax.swing.JPanel {
 
     private void jButton_rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rechercherActionPerformed
         dt = new DataTransac();
-           ProgrammeurBean prog = dt.getProgrammeur(jTextField_matricule.getText()); 
+           prog = dt.getProgrammeur(jTextField_matricule.getText()); 
            if(prog != null){
                 jTextField_nom.setText(prog.getNom());
                 jTextField_prenom.setText(prog.getPrenom());
@@ -356,12 +382,38 @@ public class VueModification extends javax.swing.JPanel {
                 dateFormat = new SimpleDateFormat("MM");  
                 jComboBox_dnMois.setSelectedIndex(Integer.valueOf(dateFormat.format(prog.getNaissance())) - 1); //Index commence à 0
                 jComboBox_deMois.setSelectedIndex(Integer.valueOf(dateFormat.format(prog.getEmbauche())) - 1);
+                jButton_valider.setEnabled(true);
            } else {
-                System.out.println("Integer.valueOf(dateFormat.format(prog.getNaissance()))");
+                JOptionPane.showMessageDialog(this, "Programmeur introuvable", "Echec", JOptionPane.ERROR_MESSAGE);
+                jButton_valider.setEnabled(false);
+                reinitText();
            }
            
            dt.fermerRessources();
     }//GEN-LAST:event_jButton_rechercherActionPerformed
+
+    private void jButton_annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_annulerActionPerformed
+        if(prog != null){
+                jTextField_matricule.setText(prog.getMatricule());
+                jTextField_nom.setText(prog.getNom());
+                jTextField_prenom.setText(prog.getPrenom());
+                jTextField_responsable.setText(prog.getResponsable());
+                jTextField_hobby.setText(prog.getHobby());
+                jTextField_adresse.setText(prog.getAdresse());
+                jTextField_pseudo.setText(prog.getPseudo());
+                DateFormat dateFormat = new SimpleDateFormat("dd");
+                jTextField_dnJour.setText(dateFormat.format(prog.getNaissance()));
+                jTextField_deJour.setText(dateFormat.format(prog.getEmbauche()));
+                dateFormat = new SimpleDateFormat("yyyy");         
+                jTextField_dnAnnee.setText(dateFormat.format(prog.getNaissance()));
+                jTextField_deAnnee.setText(dateFormat.format(prog.getEmbauche()));
+                dateFormat = new SimpleDateFormat("MM");  
+                jComboBox_dnMois.setSelectedIndex(Integer.valueOf(dateFormat.format(prog.getNaissance())) - 1); //Index commence à 0
+                jComboBox_deMois.setSelectedIndex(Integer.valueOf(dateFormat.format(prog.getEmbauche())) - 1);
+        } else {
+                reinitText();
+        }
+    }//GEN-LAST:event_jButton_annulerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
