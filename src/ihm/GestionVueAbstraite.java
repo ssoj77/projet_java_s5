@@ -5,10 +5,12 @@
  */
 package ihm;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Ssoj
  */
-public abstract class GestionVueAbstraite {
+public abstract class GestionVueAbstraite extends JFrame {
     
 }
