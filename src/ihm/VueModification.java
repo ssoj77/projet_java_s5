@@ -9,8 +9,10 @@ import data.DataTransac;
 import data.ProgrammeurBean;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,15 +23,18 @@ public class VueModification extends javax.swing.JPanel {
 
     private DataTransac dt;
     private ProgrammeurBean prog;
+    private JLabel mode;
 
     /**
      * Creates new form VueModification
      */
     public VueModification() {
-        initComponents();
+        initComponents(); 
+        initMode();
     }
     
     public void ajouter(){
+        mode.setText("ajouter");
         Component[] components = getComponents();
 
         for (Component component : components) {
@@ -42,7 +47,8 @@ public class VueModification extends javax.swing.JPanel {
         jPanel2.setEnabled(true);
     }
     
-    public void modifier(){        
+    public void modifier(){   
+        mode.setText("modifier");
         Component[] components = getComponents();
 
         for (Component component : components) {
@@ -56,6 +62,7 @@ public class VueModification extends javax.swing.JPanel {
     }
     
     public void supprimer(){
+        mode.setText("supprimer");
         Component[] components = getComponents();
 
         for (Component component : components) {
@@ -142,6 +149,11 @@ public class VueModification extends javax.swing.JPanel {
         jButton_reinit.setEnabled(false);
 
         jButton_valider.setText("Valider");
+        jButton_valider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_validerActionPerformed(evt);
+            }
+        });
 
         jButton_annuler.setText("Annuler");
         jButton_annuler.addActionListener(new java.awt.event.ActionListener() {
@@ -199,11 +211,6 @@ public class VueModification extends javax.swing.JPanel {
         jTextField_dnJour.setText("jour");
 
         jTextField_dnAnnee.setText("annee");
-        jTextField_dnAnnee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_dnAnneeActionPerformed(evt);
-            }
-        });
 
         jComboBox_dnMois.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
@@ -359,10 +366,6 @@ public class VueModification extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField_dnAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_dnAnneeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_dnAnneeActionPerformed
-
     private void jButton_rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_rechercherActionPerformed
         dt = new DataTransac();
            prog = dt.getProgrammeur(jTextField_matricule.getText()); 
@@ -415,6 +418,25 @@ public class VueModification extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton_annulerActionPerformed
 
+    private void jButton_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_validerActionPerformed
+        String dn = jTextField_dnAnnee.getText() + "-" + jComboBox_dnMois.getSelectedItem() + "-" + jTextField_dnJour.getText();
+        String de = jTextField_deAnnee.getText() + "-" + jComboBox_deMois.getSelectedItem() + "-" + jTextField_deJour.getText();
+        dt = new DataTransac();
+        switch(mode.getText()){
+            case "ajouter" :
+                        dt.ajouterProgrammeur(jTextField_matricule.getText(), jTextField_nom.getText(), jTextField_prenom.getText(), jTextField_adresse.getText(), 
+                               jTextField_pseudo.getText(), jTextField_responsable.getText(), jTextField_hobby.getText(), dn, de);
+                        break;
+            case "modifier" :
+                        dt.modifierProgrammeur(jTextField_matricule.getText(), jTextField_nom.getText(), jTextField_prenom.getText(), jTextField_adresse.getText(), 
+                               jTextField_pseudo.getText(), jTextField_responsable.getText(), jTextField_hobby.getText(), dn, de);
+                        break;
+            case "supprimer" :
+                        dt.supprimerProgrammeur(jTextField_matricule.getText());
+                        break;            
+        }
+    }//GEN-LAST:event_jButton_validerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_annuler;
@@ -447,4 +469,9 @@ public class VueModification extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField_pseudo;
     private javax.swing.JTextField jTextField_responsable;
     // End of variables declaration//GEN-END:variables
+
+    private void initMode() {
+        mode = new JLabel();
+        mode.setVisible(false);
+    }
 }

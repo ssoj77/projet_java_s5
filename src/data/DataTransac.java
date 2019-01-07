@@ -135,9 +135,8 @@ public class DataTransac implements ActionBD {
         }
     }
 
-    @Override
     public int ajouterProgrammeur(String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, 
-            String hobby, Date naissance, Date embauche) {
+            String hobby, String naissance, String embauche) {
          
         try {
             pstmt = dbConn.prepareStatement(Constante.REQUETE_INSERTION);
@@ -148,9 +147,9 @@ public class DataTransac implements ActionBD {
             pstmt.setString(5, pseudo);
             pstmt.setString(6, responsable);
             pstmt.setString(7, hobby);
-            pstmt.setDate(8, naissance);
-            pstmt.setDate(9, embauche);
-            rs = pstmt.executeQuery();
+            pstmt.setDate(8, Date.valueOf(naissance));
+            pstmt.setDate(9, Date.valueOf(embauche));
+            pstmt.executeUpdate();
             
         } catch (SQLException ex) {
             Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,29 +159,47 @@ public class DataTransac implements ActionBD {
     }
 
     
-   
-    @Override
-   public int modifierProgrammeur(int id, int matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, Date naissance,
-            Date embauche) {      
+    public int modifierProgrammeur(String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, String naissance,
+            String embauche) {      
         try {
             pstmt = dbConn.prepareStatement(Constante.REQUETE_MODIF);
-            pstmt.setInt(1, matricule);
+            pstmt.setString(1, matricule);
             pstmt.setString(2, nom);
             pstmt.setString(3, prenom);
             pstmt.setString(4, adresse);
             pstmt.setString(5, pseudo);
             pstmt.setString(6, responsable);
             pstmt.setString(7, hobby);
-            pstmt.setDate(8, naissance);
-            pstmt.setDate(9, embauche);
-            pstmt.setInt(10, id);
-            
-            rs = pstmt.executeQuery();
+            pstmt.setDate(8, Date.valueOf(naissance));
+            pstmt.setDate(9, Date.valueOf(embauche));            
+            pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, ex);
             return 1;
         }
         return 0;
+    }
+
+    public int supprimerProgrammeur(String matricule) {
+        try {
+            pstmt = dbConn.prepareStatement(Constante.REQUETE_SUPR);
+            pstmt.setString(1, matricule);            
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, ex);
+            return 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int ajouterProgrammeur(String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, Date naissance, Date embauche) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int modifierProgrammeur(int id, int matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, Date naissance, Date embauche) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
