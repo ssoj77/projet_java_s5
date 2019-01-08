@@ -79,7 +79,16 @@ public interface ActionBD {
     /**
      * Cette méthode permet de modifier un programmeur dans la base de données
      * et retourne une variable de type int pour dire si la requête s'est bien passé
-     * @param matricule le matricule du programmeur à modifier
+     * @param id clé primaire (int)
+     * @param matricule le matricule du programmeur à modifier (int)
+     * @param nom nom de famille du programmeur (String)
+     * @param prenom prénom du programmeur (String)
+     * @param adresse adresse du programmeur (String)
+     * @param embauche date d'embauche du programmeur (Date)
+     * @param naissance date de naissance du programmeur (Date)
+     * @param responsable responsable du programmeur (String)
+     * @param pseudo pseudo du programmeur (String)
+     * @param hobby hobby du programmeur (String)
      * @return statut une variable de type int
      */
     public abstract int modifierProgrammeur(int id, int matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, Date naissance,

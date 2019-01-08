@@ -10,6 +10,10 @@ package ihm;
  * @author Ssoj
  */
 public class Start {
+    /**
+     * point de départ du projet
+     * @param args 
+     */
     public static void main(String[] args) {
         Vue ihm = new Vue();
         ihm.init();

@@ -159,7 +159,7 @@ public class DataTransac implements ActionBD {
     }
 
     
-    public int modifierProgrammeur(String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, String naissance,
+    public int modifierProgrammeur(int id, String matricule, String nom, String prenom, String adresse, String pseudo, String responsable, String hobby, String naissance,
             String embauche) {      
         try {
             pstmt = dbConn.prepareStatement(Constante.REQUETE_MODIF);
@@ -171,7 +171,8 @@ public class DataTransac implements ActionBD {
             pstmt.setString(6, responsable);
             pstmt.setString(7, hobby);
             pstmt.setDate(8, Date.valueOf(naissance));
-            pstmt.setDate(9, Date.valueOf(embauche));            
+            pstmt.setDate(9, Date.valueOf(embauche)); 
+            pstmt.setInt(10, id);
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DataTransac.class.getName()).log(Level.SEVERE, null, ex);

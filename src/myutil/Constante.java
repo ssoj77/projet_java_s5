@@ -18,6 +18,6 @@ public class Constante {
     public static final String REQUETE_UNIQUE = "SELECT * from PROGRAMMEUR WHERE matricule = ?";
     public static final String REQUETE_INSERTION = "INSERT INTO PROGRAMMEUR(MATRICULE,NOM,PRENOM,ADRESSE,PSEUDO,RESPONSABLE,HOBBY,DATE_NAISS,DATE_EMB)"
             + "VALUES(?,?,?,?,?,?,?,?,?)";
-    public static final String REQUETE_MODIF = "";
+    public static final String REQUETE_MODIF = "UPDATE programmeur SET matricule = ?, nom = ?, prenom = ?, adresse = ?, pseudo = ?, responsable = ?, hobby = ?, date_naiss = ?, date_emb = ? WHERE id = ?";
     public static String REQUETE_SUPR = "DELETE FROM PROGRAMMEUR WHERE MATRICULE = ?";
 }

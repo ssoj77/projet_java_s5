@@ -6,15 +6,10 @@
 package ihm;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import data.DataTransac;
 import data.ProgrammeurBean;
 import javax.swing.JMenu;
@@ -23,9 +18,9 @@ import javax.swing.JMenuItem;
 
 /**
  *
- * @author Jacques
+ * @author Pierre
  */
-public class Vue extends GestionVueAbstraite implements ActionListener {
+public class Vue extends GestionVueAbstraite {
 
     // Déclaration des attributs
     // L'initialisation se fera "en local" dans des méthodes
@@ -35,14 +30,16 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
     private JTextArea zoneAffichageProgrammeurs;
     private JPanel pane;
     private JScrollPane scroll;
-    private ProgrammeurBean progrBean;
     private String contenuTextArea;
     private DataTransac dt;
     private VueModification vm;
-
+    
+    /**
+     * initialise la fenêtre
+     */
     @Override
     public void init() {
-        pane = new JPanel(); // Créantion d'un panel pour gérer les widgets
+        pane = new JPanel(); // Création d'un panel pour gérer les widgets
         zoneAffichageProgrammeurs = new JTextArea();
         //Bar de menu [Programmeur][Action]
         barMenu = new JMenuBar();
@@ -81,13 +78,19 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
          * Il faut donc forcer la visibilité à "true"
          */
         this.setVisible(true);
-        this.setTitle("TP 3");
+        this.setTitle("GesProg");
         setDefaultCloseOperation(EXIT_ON_CLOSE); // Fermeture fenêtre = arrêt de l'application 
         setBounds(10, 10, 680, 380);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
         this.add(pane); // Ajout du panel à notre frame de base
     }
-
+    
+    /**
+     * Obervateur du menu de la fenêtre
+     * @param event 
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == afficherTous) {            
@@ -99,7 +102,6 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
             dt = new DataTransac();
             contenuTextArea = dt.afficherProgrammeurs();
             zoneAffichageProgrammeurs.setText(contenuTextArea);
-            pane.removeAll();
             pane.add(scroll);
             pane.repaint();
             dt.fermerRessources();
@@ -131,19 +133,19 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
             }
         } else if (event.getSource() == modifier) {
             pane.removeAll();
-            vm = new VueModification();
+            vm = new VueModification(this);
             vm.modifier();
             pane.add(vm); 
             getContentPane().revalidate();
         } else if (event.getSource() == supprimer) {
             pane.removeAll();
-            vm = new VueModification();
+            vm = new VueModification(this);
             vm.supprimer();
             pane.add(vm); 
             getContentPane().revalidate();
         } else if (event.getSource() == ajouter) {
             pane.removeAll();
-            vm = new VueModification();
+            vm = new VueModification(this);
             vm.ajouter();
             pane.add(vm);            
             getContentPane().revalidate();
@@ -152,6 +154,11 @@ public class Vue extends GestionVueAbstraite implements ActionListener {
         
     }
     
-   
+    /**
+     * Permet de réinitialiser la vue
+     */
+    public void reinit() {
+        dispose();
+    }
 
 }
